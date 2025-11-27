@@ -1,0 +1,75 @@
+{% extends "products/base.html" %}
+
+{% block title %}Lista de Produtos{% endblock %}
+
+{% block content %}
+
+<div class="card shadow-sm border-0">
+    <div class="card-body">
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="h4 mb-0">
+                <i class="bi bi-box-seam"></i> Produtos
+            </h2>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead class="table-dark text-center">
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>Descrição</th>
+                        <th>Preço</th>
+                        <th>Qtd</th>
+                        <th>Valor em Estoque</th>
+                        <th width="150">Ações</th>
+                    </tr>
+                </thead>
+
+                <tbody class="text-center">
+                {% for p in products %}
+                    <tr>
+                        <td><strong>#{{ p.id }}</strong></td>
+                        <td>{{ p.nome }}</td>
+                        <td class="text-muted" style="max-width: 250px;">
+                            {{ p.descricao|default:"—" }}
+                        </td>
+                        <td>R$ {{ p.preco }}</td>
+                        <td>{{ p.quantidadeEstoque }}</td>
+                        <td><strong>R$ {{ p.valorEstoque }}</strong></td>
+
+                        <td>
+                            <div class="d-flex justify-content-center gap-2">
+
+                                <!-- EDITAR -->
+                                <a href="{% url 'products_edit' p.id %}"
+                                   class="btn btn-sm btn-outline-warning">
+                                    <i class="bi bi-pencil-square"></i>
+                                </a>
+
+                                <!-- EXCLUIR -->
+                                <a href="{% url 'products_delete' p.id %}"
+                                   class="btn btn-sm btn-outline-danger"
+                                   onclick="return confirm('Tem certeza que deseja excluir o produto {{ p.nome }}?')">
+                                    <i class="bi bi-trash3"></i>
+                                </a>
+
+                            </div>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="7" class="text-center text-muted py-3">
+                            Nenhum produto cadastrado ainda.
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

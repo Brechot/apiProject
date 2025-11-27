@@ -1,0 +1,5 @@
+com/ecommerce/project_ecommerce/service/ProdutoService.class
+com/ecommerce/project_ecommerce/controller/ProdutoController.class
+com/ecommerce/project_ecommerce/model/Produto.class
+com/ecommerce/project_ecommerce/ProjectEcommerceApplication.class
+com/ecommerce/project_ecommerce/repository/ProdutoRepository.class

@@ -1,0 +1,91 @@
+{% extends "products/base.html" %}
+
+{% block title %}Formulário de Produto{% endblock %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-7">
+
+        <div class="card shadow-sm border-0">
+            <div class="card-body p-4">
+
+                <h2 class="h4 mb-4">
+                    {% if product %}
+                        Editar Produto
+                    {% else %}
+                        Novo Produto
+                    {% endif %}
+                </h2>
+
+                <form method="post">
+                    {% csrf_token %}
+
+                    {% if product %}
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">ID</label>
+                        <input type="text" class="form-control" value="{{ product.id }}" disabled>
+                    </div>
+                    {% endif %}
+
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Nome</label>
+                        <input type="text" name="nome" class="form-control"
+                               value="{{ product.nome|default:'' }}"
+                               required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Descrição</label>
+                        <textarea name="descricao" class="form-control" rows="2">{{ product.descricao|default:'' }}</textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Preço (R$)</label>
+                        <input type="number" step="0.01" name="preco" class="form-control"
+                               value="{{ product.preco|default:'' }}"
+                               required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Quantidade em Estoque</label>
+                        <input type="number" name="quantidadeEstoque" class="form-control"
+                               value="{{ product.quantidadeEstoque|default:'' }}"
+                               required>
+                    </div>
+
+                    {% if product %}
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Valor Total em Estoque (R$)</label>
+                        <input type="text" class="form-control"
+                               value="{{ product.valorEstoque }}"
+                               disabled>
+                    </div>
+                    {% endif %}
+
+                    {% if not product %}
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Código</label>
+                        <input type="text" name="codigo" class="form-control" required>
+                    </div>
+                    {% endif %}
+
+                    <div class="d-flex justify-content-between">
+                        <a href="{% url 'products_list' %}" class="btn btn-outline-secondary">
+                            Cancelar
+                        </a>
+
+                        <button class="btn btn-success" type="submit">
+                            Salvar
+                        </button>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}
